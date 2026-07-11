@@ -1,75 +1,34 @@
-# USSD Health Information System
-> **Project Description:** The Smart Office and Public Digital Health Assistant.
+# Enterprise USSD Health Information System & Outbreak Sentinel
 
----
-
-## 🏛️ System Architecture
-
-This system acts as a backend webhook that handles interactive text sessions initiated by users on any basic mobile phone:
+## 🏛️ System Core Architecture
+This system functions as an encrypted telemetry webhook infrastructure mapping real-time text menus to cellular end-users, while assessing demographic outbreak vulnerabilities asynchronously.
 
 ```text
-[ User Smartphone ] 
-       │  (Dials *123#)
+[ Feature / Analog Phone ] ➔ Dials Shortcode (*123#)
+       │
        ▼
-[ Mobile Network Operator (MNO) Gateway / AfricasTalking ]
-       │  (HTTP POST Request)
+[ Mobile Operator Gateway / Africa's Talking ] ➔ HTTPS POST Hook (IP Protected)
+       │
        ▼
-[ Node.js Webhook Server ]
-       │  (Decides Next Menu Step Based on User Session)
-       ▼
-[ Response returned as Plain Text (CON or END) ]
+[ Node.js Webhook Server (Render Cloud Stack) ] ➔ Evaluates State & Updates SQLite Core
+       │
+       ├─── [ Valid Entry ] ➔ Responds back with Plain Text Menu Layouts (CON / END)
+       │
+       └─── [ Outbreak Risk Found ] ➔ Automatically Dispatches Outbreak SMS Alert to Medical Team
 ```
 
-### 📲 USSD Session Protocol Definitions
-*   **CON**: Keeps the communication channel open. Instructs the mobile device to display the text prompt and show an input field for the user to reply.
-*   **END**: Closes the communication session. Instructs the mobile device to display the final text message and disconnect the call.
+## 🔐 Enhanced Production Variables Array (Render/Ecosystem Configuration)
+To maintain structural security containment barriers, populate these secure keys directly inside your Cloud Environment variable array dashboard panel:
 
----
+*   `NODE_ENV`: `production` (Activates structural IP gateway filtering defenses).
+*   `USSD_API_KEY`: A custom token used to authorize access to your webhooks.
+*   `ADMIN_PIN`: Secret 4-digit code (e.g., `2026`) providing access to the database dashboard reports.
+*   `DOCTOR_PHONE`: Target supervisor contact receiving emergency SMS dispatches (e.g., `+255683218814`).
+*   `AT_USERNAME`: Africa's Talking account name (`sandbox` for testing or production profile identifier).
+*   `AT_SMS_API_KEY`: Africa's Talking development console API access token.
 
-## 🔍 Project Overview
-
-The **USSD Health Information System** is an accessible, text-based digital health solution designed to deliver critical medical services to users without relying on an internet connection or smartphone apps. By utilizing standard **USSD (Unstructured Supplementary Service Data)** technology, any basic feature phone can communicate with this system instantly via simple shortcodes (e.g., `*123#`).
-
-This implementation is built as a highly responsive backend webhook engine using **Node.js** and **Express**, featuring a stateless layout optimized for low memory usage and high-capacity cellular networks.
-
-### 🌟 Key Functionalities
-
-*   **Automated Symptom Checker:** Guides users through an interactive triage structure to analyze symptoms (such as high fevers or persistent coughing) and safely routes localized medical advice.
-*   **Geographic Clinic Locator:** Prompts users for their immediate region or town name, instantly matching them with nearby 24/7 public health facilities and referral centers.
-*   **Public Health Broadcast System:** Serves as a lightweight announcement platform to deliver immediate alerts, vaccination schedules, and disease preventative practices to rural communities.
-
----
-
-## ⚙️ Technical Architecture & Code Implementation Deep Dive
-
-This application is a production-ready Node.js backend configured to serve as a webhook endpoint for telecommunication USSD gateways (such as Africa's Talking, Hubtel, or direct MNO connections). 
-
-### 1. Request Handling & Parsing
-The server listens for incoming HTTP `POST` requests on the `/ussd` route. Every interaction from the mobile telecom network forwards a JSON or URL-encoded payload containing four core string parameters:
-*   `sessionId`: A unique identifier generated per active user session to persist call tracking.
-*   `serviceCode`: The dedicated shortcode dialed by the user (e.g., `*123#`).
-*   `phoneNumber`: The MSISDN string of the active mobile device.
-*   `text`: A concatenated string reflecting the user's sequential inputs separated by asterisks (e.g., `1*2`).
-
-### 2. Stateless Session Routing Algorithm
-To circumvent complex memory footprints or continuous database querying overhead, the core logic implements a stateless array parsing strategy:
-*   The script reads the incoming `text` string and transforms it using `.split('*')` into an array named `textArray`.
-*   The index `textArray` acts as the root navigation flag, pinning down the user's main branch target (Symptom Checker, Clinic Locator, or Alerts).
-*   The property `level` determines the immediate depth of the interactive tree traversal (`textArray.length`). This prevents state collisions when processing deeply nested sub-menus.
-
----
-
-## 🚀 How to Run the Simulation
-1. Clone this repository or download the source files.
-2. Ensure you have Node.js installed on your workspace.
-3. Run `npm install` inside your project directory to load dependencies.
-4. Execute `npm start` to bring up your live endpoint webhook simulation.
-
----
-
-## 📞 Contact Details
-For inquiries, collaborations, or questions regarding this project, please feel free to reach out:
-
-*   **Author:** Altafu Ally
-*   **Email:** Altafuakalama@gmail.com
-*   **Mobile Phone:** +255 683 218 814
+## 🌟 Expanded Operational Capabilities
+1.  **Patient Triage Stream:** Direct validation loops screening high fevers or coughs.
+2.  **Clinic Locator Mapping:** Evaluates user context locations to match working nearby hospital facilities.
+3.  **Secure Supervisor Metrics Summary (Option 4):** PIN-locked system dashboard summarizing total reports from the SQLite engine database.
+4.  **Sentinel Outbreak System:** Monitored alert algorithm tracking volume thresholds. It automatically triggers emergency alerts if more than 5 matching alerts occur in under 1 hour.
