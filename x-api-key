@@ -1,0 +1,3 @@
+curl -X POST http://localhost:3000/ussd \
+  -H "Content-Type: application/json" \
+  -d '{"sessionId": "test-123", "phoneNumber": "+255683218814", "text": ""}'
